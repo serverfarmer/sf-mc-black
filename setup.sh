@@ -15,6 +15,7 @@ setup_midnight_commander_for_user() {
 	wrapper=/usr/share/mc/bin/mc-wrapper.sh
 
 	if [ -d $home ]; then
+		mkdir -p `dirname $home/$path`
 		cp -f $file $home/$path
 		chown $user:$group $home/$path
 
