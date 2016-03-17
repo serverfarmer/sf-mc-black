@@ -35,7 +35,7 @@ setup_midnight_commander_for_user() {
 }
 
 
-base=/opt/sf-mc-black/templates/$OSVER
+base=/opt/farm/ext/mc-black/templates/$OSVER
 
 if [ -f $base/mc.ini ]; then
 	echo "setting up midnight commander profiles"
@@ -44,7 +44,7 @@ if [ -f $base/mc.ini ]; then
 		cp -f $base/mc.skin /usr/share/mc/skins/wheezy.ini
 	fi
 
-	if [ "`grep -Fx $OSVER /opt/sf-mc-black/newpaths.conf`" != "" ]; then
+	if [ "`grep -Fx $OSVER /opt/farm/ext/mc-black/newpaths.conf`" != "" ]; then
 		SUB=".config/mc/ini"
 	else
 		SUB=".mc/ini"
