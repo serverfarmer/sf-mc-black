@@ -11,25 +11,31 @@ setup_midnight_commander_for_user() {
 	group=`id -gn $user`
 	home=`getent passwd $user |cut -d: -f 6`
 
-	rc=$home/.bashrc
-	wrapper=/usr/share/mc/bin/mc-wrapper.sh
+	if [ "$OSTYPE" = "netbsd" ]; then
+		wrapper=/usr/pkg/libexec/mc/mc-wrapper.sh
+	else
+		wrapper=/usr/share/mc/bin/mc-wrapper.sh
+	fi
 
 	if [ -d $home ]; then
 		mkdir -p `dirname $home/$path`
 		cp -f $file $home/$path
 		chown $user:$group $home/$path
 
-		if [ -f $rc ]; then
+		rc=$home/.bashrc
 
-			if [ "`grep 'alias mc' $rc`" = "" ] && [ -f $wrapper ]; then
-				echo >>$rc
-				echo "alias mc='. $wrapper'" >>$rc
-			fi
+		if [ ! -f $rc ]; then
+			touch $rc
+		fi
 
-			if [ "`grep mcedit $rc`" = "" ]; then
-				echo >>$rc
-				echo "export EDITOR=mcedit" >>$rc
-			fi
+		if [ "`grep 'alias mc' $rc`" = "" ] && [ -f $wrapper ]; then
+			echo >>$rc
+			echo "alias mc='. $wrapper'" >>$rc
+		fi
+
+		if [ "`grep mcedit $rc`" = "" ]; then
+			echo >>$rc
+			echo "export EDITOR=mcedit" >>$rc
 		fi
 	fi
 }
@@ -41,7 +47,11 @@ if [ -f $base/mc.ini ]; then
 	echo "setting up midnight commander profiles"
 
 	if [ -f $base/mc.skin ]; then
-		cp -f $base/mc.skin /usr/share/mc/skins/wheezy.ini
+		if [ "$OSTYPE" = "netbsd" ]; then
+			cp -f $base/mc.skin /usr/pkg/share/mc/skins/wheezy.ini
+		else
+			cp -f $base/mc.skin /usr/share/mc/skins/wheezy.ini
+		fi
 	fi
 
 	if [ "`grep -Fx $OSVER /opt/farm/ext/mc-black/newpaths.conf`" != "" ]; then
