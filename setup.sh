@@ -11,7 +11,9 @@ setup_midnight_commander_for_user() {
 	group=`id -gn $user`
 	home=`getent passwd $user |cut -d: -f 6`
 
-	if [ "$OSTYPE" = "netbsd" ]; then
+	if [ "$OSTYPE" = "freebsd" ]; then
+		wrapper=/usr/local/libexec/mc/mc-wrapper.sh
+	elif [ "$OSTYPE" = "netbsd" ]; then
 		wrapper=/usr/pkg/libexec/mc/mc-wrapper.sh
 	else
 		wrapper=/usr/share/mc/bin/mc-wrapper.sh
@@ -47,7 +49,9 @@ if [ -f $base/mc.ini ]; then
 	echo "setting up midnight commander profiles"
 
 	if [ -f $base/mc.skin ]; then
-		if [ "$OSTYPE" = "netbsd" ]; then
+		if [ "$OSTYPE" = "freebsd" ]; then
+			cp -f $base/mc.skin /usr/local/share/mc/skins/wheezy.ini
+		elif [ "$OSTYPE" = "netbsd" ]; then
 			cp -f $base/mc.skin /usr/pkg/share/mc/skins/wheezy.ini
 		else
 			cp -f $base/mc.skin /usr/share/mc/skins/wheezy.ini
