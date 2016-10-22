@@ -15,6 +15,8 @@ setup_midnight_commander_for_user() {
 		wrapper=/usr/local/libexec/mc/mc-wrapper.sh
 	elif [ "$OSTYPE" = "netbsd" ]; then
 		wrapper=/usr/pkg/libexec/mc/mc-wrapper.sh
+	elif [ "$OSTYPE" = "suse" ]; then
+		wrapper=/usr/share/mc/mc-wrapper.sh
 	else
 		wrapper=/usr/share/mc/bin/mc-wrapper.sh
 	fi
