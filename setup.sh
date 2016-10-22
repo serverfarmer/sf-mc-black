@@ -58,10 +58,10 @@ if [ -f $base/mc.ini ]; then
 		fi
 	fi
 
-	if [ "`grep -Fx $OSVER /opt/farm/ext/mc-black/newpaths.conf`" != "" ]; then
-		SUB=".config/mc/ini"
-	else
+	if grep -qFx $OSVER /opt/farm/ext/mc-black/config/oldpaths.conf; then
 		SUB=".mc/ini"
+	else
+		SUB=".config/mc/ini"
 	fi
 
 	setup_midnight_commander_for_user $base/mc.ini $SUB root
