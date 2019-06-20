@@ -45,6 +45,8 @@ setup_midnight_commander_for_user() {
 }
 
 
+/opt/farm/ext/packages/utils/install.sh mc
+
 base=/opt/farm/ext/mc-black/templates/$OSVER
 
 if [ -f $base/mc.ini ]; then
