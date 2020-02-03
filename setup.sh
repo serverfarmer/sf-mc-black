@@ -1,6 +1,5 @@
 #!/bin/bash
 . /opt/farm/scripts/init
-. /opt/farm/scripts/functions.custom
 
 
 
@@ -74,7 +73,7 @@ if [ -f $base/mc.ini ]; then
 		setup_midnight_commander_for_user $base/mc.ini $SUB ubuntu
 	fi
 
-	ADMIN=`primary_admin_account`
+	ADMIN=`/opt/farm/config/get-primary-admin-account.sh`
 	if [ "`getent passwd $ADMIN`" != "" ]; then
 		setup_midnight_commander_for_user $base/mc.ini $SUB $ADMIN
 	fi
